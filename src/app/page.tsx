@@ -1,9 +1,75 @@
+"use client";
+import Chart, { CategoryScale } from 'chart.js/auto';
 import Image from "next/image";
+import { useState } from "react";
+import { Bar } from "react-chartjs-2";
+import {Line } from "react-chartjs-2";
+import {Pie } from "react-chartjs-2";
+import {Chart as Ghart} from "react-google-charts";
+import LineChart from "./components/LineChart"
+import BarChart from "./components/BarChart"
+import PieChart from "./components/PieChart";
+import { bars } from "./Data.js"
+Chart.register(CategoryScale)
 
 export default function Home() {
+
+  const [barData, setBarData] = useState({
+    labels: ["Product A", "Product B", "Product C"],
+    datasets: [
+      {
+        label: "Users Gained",
+        data: [100, 150, 200],
+        borderWidth: 2,
+      },
+    ],
+  });
+  
+  
+const data = [
+  ["day", "a", "b", "c", "d"],
+  ["Mon", 20, 28, 38, 45],
+  ["Tue", 31, 38, 55, 66],
+  ["Wed", 50, 55, 77, 80],
+  ["Thu", 50, 77, 66, 77],
+  ["Fri", 15, 66, 22, 68],
+];
+
+const options = {
+  legend: "none",
+};
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+      <div className="flex gap-4 items-center flex-col sm:flex-row" >
+      <Ghart
+      chartType="CandlestickChart"
+      width="100%"
+      height="400px"
+      data={data}
+      options={options}
+    />
+    <div className="flex gap-4 items-center flex-col sm:flex-row" >
+      <LineChart chartData={barData} />
+      </div> 
+      </div>
+      <div className="flex gap-4 items-center flex-col sm:flex-row" >
+      <LineChart chartData={barData} />
+      </div> 
+     
+      <div style={{ width: 700 }}>
+      <LineChart chartData={barData} />
+      </div>
+
+      <div style={{ width: 700 }}>
+      <BarChart chartData={barData} />
+      </div>
+
+      <div style={{ width: 700 }}>
+      <PieChart chartData={barData} />;
+      </div>
+       
         <Image
           className="dark:invert"
           src="https://nextjs.org/icons/next.svg"
